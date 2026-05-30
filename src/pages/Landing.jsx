@@ -136,21 +136,21 @@ export default function Landing() {
             >
               {/* Chromatic aberration layers */}
               <span
-                className={`block text-[clamp(4rem,15vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-30 blur-[2px] ${WORDS[currentIdx].gradient}`}
+                className={`block text-[clamp(3rem,14vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-30 blur-[2px] ${WORDS[currentIdx].gradient}`}
                 style={{ transform: 'translate(-3px, 0)', mixBlendMode: 'multiply', color: '#ff0040', WebkitTextFillColor: '#ff0040' }}
                 aria-hidden
               >
                 {WORDS[currentIdx].text}
               </span>
               <span
-                className={`block text-[clamp(4rem,15vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-20 blur-[2px]`}
+                className={`block text-[clamp(3rem,14vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-20 blur-[2px]`}
                 style={{ transform: 'translate(3px, 0)', mixBlendMode: 'multiply', color: '#0040ff', WebkitTextFillColor: '#0040ff' }}
                 aria-hidden
               >
                 {WORDS[currentIdx].text}
               </span>
               {/* Main text */}
-              <span className={`relative block text-[clamp(4rem,15vw,11rem)] font-display font-black tracking-tighter leading-none ${WORDS[currentIdx].gradient}`}>
+              <span className={`relative block text-[clamp(3rem,14vw,11rem)] font-display font-black tracking-tighter leading-none ${WORDS[currentIdx].gradient}`}>
                 {WORDS[currentIdx].text}
               </span>
             </motion.div>
@@ -164,7 +164,7 @@ export default function Landing() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-center gap-2 md:gap-3 px-4 py-8 text-center"
+          className="flex flex-col items-center gap-1 sm:gap-2 md:gap-4 px-4 py-8 text-center"
         >
           {WORDS.map((w, i) => (
             <motion.span
@@ -172,7 +172,7 @@ export default function Landing() {
               initial={{ opacity: 0, x: w.from === 'left' ? -40 : w.from === 'right' ? 40 : 0, y: w.from === 'top' ? -20 : w.from === 'bottom' ? 20 : 0 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: i * 0.025, duration: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className={`block text-[clamp(2.2rem,8vw,6rem)] font-display font-black tracking-tighter leading-none ${w.gradient}`}
+              className={`block text-[clamp(1.5rem,7vw,6.5rem)] font-display font-black tracking-tighter leading-none ${w.gradient}`}
             >
               {w.text}
             </motion.span>
@@ -188,7 +188,7 @@ export default function Landing() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => navigate('/dictionary')}
-            className="absolute bottom-12 md:bottom-20 bg-primary text-tertiary hover:bg-tertiary hover:text-primary font-black tracking-[0.2em] uppercase px-10 py-4 md:px-14 md:py-5 rounded-2xl text-sm md:text-lg transition-colors shadow-2xl border border-transparent hover:border-tertiary"
+            className="absolute bottom-10 sm:bottom-12 md:bottom-20 bg-primary text-tertiary hover:bg-tertiary hover:text-primary font-black tracking-[0.2em] uppercase px-8 sm:px-10 py-3 sm:py-4 md:px-14 md:py-5 rounded-xl sm:rounded-2xl text-xs sm:text-sm md:text-lg transition-colors shadow-2xl border border-transparent hover:border-tertiary"
           >
             PROCEED TO PAPANARY
           </motion.button>
