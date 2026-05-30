@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 export default function SuggestModal({ isOpen, onClose }) {
   const [word, setWord] = useState('');
   const [meaning, setMeaning] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, submitting, success, error
 
   if (!isOpen) return null;
@@ -19,6 +21,8 @@ export default function SuggestModal({ isOpen, onClose }) {
       await addDoc(collection(db, "suggestions"), {
         term: word,
         meaning: meaning,
+        suggestedBy: name,
+        email: email,
         approved: false,
         timestamp: new Date().toISOString(),
         createdAt: serverTimestamp()
@@ -26,6 +30,8 @@ export default function SuggestModal({ isOpen, onClose }) {
       setStatus('idle');
       setWord('');
       setMeaning('');
+      setName('');
+      setEmail('');
       onClose();
       toast.success('Suggestion submitted successfully!');
     } catch (err) {
@@ -61,6 +67,25 @@ export default function SuggestModal({ isOpen, onClose }) {
                 className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors min-h-[100px] resize-none text-base"
                 required
               />
+            </div>
+            <div>
+              <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Your Name (Optional)</label>
+              <input 
+                type="text" 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Your Email (Optional)</label>
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
+              />
+              <p className="text-[10px] text-tertiary/50 uppercase tracking-widest mt-1 ml-2">Provide to get notified on approval</p>
             </div>
             
             <div className="flex justify-end gap-4 mt-4">

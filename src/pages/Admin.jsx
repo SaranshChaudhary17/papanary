@@ -32,6 +32,11 @@ export default function Admin() {
     step1: 'Think of a word, phrase or inside joke from the Casetoo universe',
     step2: 'Click the "Suggest" button in the top nav bar (or bottom on mobile)',
     step3: 'Fill in the word and its meaning, then hit Submit!',
+    emailEnabled: false,
+    emailServiceId: '',
+    emailTemplateId: '',
+    emailPublicKey: '',
+    emailThankYouMessage: 'Big news! Daddy has reviewed and approved your suggestion. It is now live in the official Papanary dictionary for the whole Nallu Army to see.\n\nThank you for helping build the lore! Keep it up.\n\nCheers,\nPapanary Admin Team'
   });
   const [popupSaving, setPopupSaving] = useState(false);
 
@@ -128,6 +133,37 @@ export default function Admin() {
 
   const handleApprove = async (suggestion) => {
     try {
+      // Send Email if enabled and email exists
+      if (popupConfig.emailEnabled && suggestion.email && popupConfig.emailServiceId && popupConfig.emailTemplateId && popupConfig.emailPublicKey) {
+        toast('Sending approval email...', { icon: '📧' });
+        const emailParams = {
+          service_id: popupConfig.emailServiceId,
+          template_id: popupConfig.emailTemplateId,
+          user_id: popupConfig.emailPublicKey,
+          template_params: {
+            user_name: suggestion.suggestedBy || 'Nalla',
+            user_email: suggestion.email,
+            word_term: suggestion.term,
+            word_meaning: suggestion.meaning,
+            custom_message: popupConfig.emailThankYouMessage,
+            reply_to: 'admin@papanary.com'
+          }
+        };
+
+        const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(emailParams)
+        });
+        
+        if (!res.ok) {
+          console.error('EmailJS error:', await res.text());
+          toast.error('Failed to send email, but continuing approval...');
+        } else {
+          toast.success('Approval email sent!');
+        }
+      }
+
       // Add to global dictionary
       await addDoc(collection(db, "words"), {
         term: suggestion.term,
@@ -296,7 +332,7 @@ export default function Admin() {
           onClick={() => setActiveTab('popup')} 
           className={`font-bold uppercase tracking-widest text-sm px-4 py-2 rounded-lg transition-colors ${activeTab === 'popup' ? 'bg-primary/20 text-primary' : 'text-tertiary/60 hover:text-tertiary hover:bg-gray-100'}`}
         >
-          Welcome Popup
+          Configuration
         </button>
       </div>
 
@@ -309,7 +345,17 @@ export default function Admin() {
               suggestions.map(sug => (
                 <div key={sug.id} className="bg-white p-6 rounded-2xl border border-tertiary/15 relative">
                   <h3 className="text-tertiary font-display font-black text-xl mb-2">{sug.term}</h3>
-                  <p className="text-tertiary/60 text-sm mb-6">{sug.meaning}</p>
+                  <p className="text-tertiary/60 text-sm mb-4">{sug.meaning}</p>
+                  
+                  <div className="bg-tertiary/5 p-3 rounded-xl mb-6 border border-tertiary/10">
+                    <p className="text-xs font-bold text-tertiary/60 tracking-widest uppercase mb-1">Suggested By</p>
+                    <p className="text-sm font-bold text-tertiary">{sug.suggestedBy || 'Anonymous'}</p>
+                    {sug.email && (
+                      <a href={`mailto:${sug.email}`} className="text-primary hover:underline text-xs tracking-widest block mt-1">
+                        {sug.email}
+                      </a>
+                    )}
+                  </div>
                   
                   <div className="flex gap-4">
                     <button 
@@ -524,12 +570,81 @@ export default function Admin() {
               </div>
             ))}
 
+            <hr className="border-tertiary/15 my-4" />
+
+            <div className="flex justify-between items-center mt-2">
+              <h2 className="text-xl font-display font-black text-tertiary tracking-wider">EMAIL NOTIFICATIONS</h2>
+              {/* Email On/Off Toggle */}
+              <button
+                onClick={() => setPopupConfig(prev => ({ ...prev, emailEnabled: !prev.emailEnabled }))}
+                className={`relative w-14 h-7 rounded-full transition-colors duration-300 border-2 ${
+                  popupConfig.emailEnabled
+                    ? 'bg-primary border-primary'
+                    : 'bg-tertiary/20 border-tertiary/30'
+                }`}
+              >
+                <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300 ${
+                  popupConfig.emailEnabled ? 'translate-x-7' : 'translate-x-0'
+                }`} />
+                <span className="sr-only">{popupConfig.emailEnabled ? 'Enabled' : 'Disabled'}</span>
+              </button>
+            </div>
+            
+            {!popupConfig.emailEnabled && (
+              <p className="text-xs font-bold text-red-400 tracking-widest uppercase bg-red-50 px-4 py-2 rounded-xl border border-red-200">
+                ⚠️ Email notifications are OFF
+              </p>
+            )}
+
+            {/* EmailJS Credentials */}
+            <div>
+              <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">EmailJS Service ID</label>
+              <input
+                type="text"
+                value={popupConfig.emailServiceId || ''}
+                onChange={e => setPopupConfig(prev => ({ ...prev, emailServiceId: e.target.value }))}
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
+                placeholder="service_xxxx"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">EmailJS Template ID</label>
+              <input
+                type="text"
+                value={popupConfig.emailTemplateId || ''}
+                onChange={e => setPopupConfig(prev => ({ ...prev, emailTemplateId: e.target.value }))}
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
+                placeholder="template_xxxx"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">EmailJS Public Key</label>
+              <input
+                type="text"
+                value={popupConfig.emailPublicKey || ''}
+                onChange={e => setPopupConfig(prev => ({ ...prev, emailPublicKey: e.target.value }))}
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
+                placeholder="user_xxxx or public API key"
+              />
+            </div>
+            
+            {/* Thank You Message */}
+            <div>
+              <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Thank You Message Body</label>
+              <textarea
+                value={popupConfig.emailThankYouMessage || ''}
+                onChange={e => setPopupConfig(prev => ({ ...prev, emailThankYouMessage: e.target.value }))}
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors resize-none min-h-[150px] text-base"
+                placeholder="Message that users will receive..."
+              />
+            </div>
+
             <button
               onClick={handleSavePopupConfig}
               disabled={popupSaving}
-              className="bg-primary text-tertiary hover:bg-tertiary hover:text-primary font-black text-sm tracking-widest uppercase px-8 py-3 rounded-xl transition-colors self-end border border-transparent hover:border-tertiary disabled:opacity-50"
+              className="bg-primary text-tertiary hover:bg-tertiary hover:text-primary font-black text-sm tracking-widest uppercase px-8 py-3 rounded-xl transition-colors self-end border border-transparent hover:border-tertiary disabled:opacity-50 mt-4"
             >
-              {popupSaving ? 'Saving...' : 'Save Changes'}
+              {popupSaving ? 'Saving...' : 'Save Configuration'}
             </button>
           </div>
         )}
