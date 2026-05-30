@@ -49,7 +49,7 @@ export default function SuggestModal({ isOpen, onClose }) {
                 type="text" 
                 value={word}
                 onChange={(e) => setWord(e.target.value)}
-                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors"
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
                 required
               />
             </div>
@@ -58,7 +58,7 @@ export default function SuggestModal({ isOpen, onClose }) {
               <textarea 
                 value={meaning}
                 onChange={(e) => setMeaning(e.target.value)}
-                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors min-h-[100px] resize-none"
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors min-h-[100px] resize-none text-base"
                 required
               />
             </div>

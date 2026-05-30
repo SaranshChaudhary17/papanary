@@ -267,7 +267,7 @@ export default function Admin() {
         </button>
       </div>
 
-      <div className="w-full flex gap-4 mb-8 border-b border-tertiary/15 pb-4">
+      <div className="w-full flex flex-wrap gap-2 md:gap-4 mb-8 border-b border-tertiary/15 pb-4">
         <button 
           onClick={() => setActiveTab('suggestions')} 
           className={`font-bold uppercase tracking-widest text-sm px-4 py-2 rounded-lg transition-colors ${activeTab === 'suggestions' ? 'bg-primary/20 text-primary' : 'text-tertiary/60 hover:text-tertiary hover:bg-gray-100'}`}

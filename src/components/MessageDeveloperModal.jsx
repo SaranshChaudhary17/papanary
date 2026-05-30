@@ -56,28 +56,28 @@ export default function MessageDeveloperModal({ isOpen, onClose }) {
               <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Name</label>
               <input 
                 type="text" value={name} onChange={(e) => setName(e.target.value)} required
-                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors"
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
               />
             </div>
             <div>
               <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Email</label>
               <input 
                 type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors"
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
               />
             </div>
             <div>
               <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Phone (WhatsApp)</label>
               <input 
                 type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91..."
-                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors"
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors text-base"
               />
             </div>
             <div>
               <label className="text-xs text-tertiary/60 mb-1 ml-2 font-bold tracking-widest uppercase block">Message</label>
               <textarea 
                 value={message} onChange={(e) => setMessage(e.target.value)} required
-                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors min-h-[100px] resize-none"
+                className="w-full bg-white border border-tertiary/15 rounded-xl px-4 py-3 text-tertiary outline-none focus:border-primary/50 transition-colors min-h-[100px] resize-none text-base"
               />
             </div>
             

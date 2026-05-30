@@ -9,6 +9,13 @@
 }
 
 @layer base {
+  html,
+  body,
+  #root {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--color-brand-bg);
     color: var(--color-tertiary);

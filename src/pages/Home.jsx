@@ -114,7 +114,7 @@ export default function Home() {
       )}
 
       <div className="text-center mb-8 md:mb-16 relative w-full">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-display font-black text-tertiary tracking-tight mb-2 md:mb-4 text-glow px-2">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-black text-tertiary tracking-tight mb-2 md:mb-4 text-glow px-2">
           PAPANARY
         </h1>
         <p className="text-tertiary/60 font-display italic text-base md:text-lg opacity-80">

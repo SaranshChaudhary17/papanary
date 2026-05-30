@@ -23,7 +23,7 @@ function AppContent() {
   const isDictionary = location.pathname === '/dictionary';
 
   return (
-    <div className="min-h-screen flex flex-col font-mono text-tertiary bg-[#FFF7D4] selection:bg-primary/30">
+    <div className="min-h-screen flex flex-col font-mono text-tertiary bg-[#FFF7D4] selection:bg-primary/30 w-full max-w-full overflow-x-hidden">
       {!isLanding && (
         <header className="flex flex-row justify-between items-center p-4 md:p-6 bg-white/80 backdrop-blur border-b border-tertiary/15 sticky top-0 z-50">
           {/* Mobile Hamburger */}

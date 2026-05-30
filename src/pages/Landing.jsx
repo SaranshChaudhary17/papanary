@@ -136,21 +136,21 @@ export default function Landing() {
             >
               {/* Chromatic aberration layers */}
               <span
-                className={`block text-[clamp(3rem,14vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-30 blur-[2px] ${WORDS[currentIdx].gradient}`}
+                className={`block text-[clamp(2.2rem,11vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-30 blur-[2px] ${WORDS[currentIdx].gradient}`}
                 style={{ transform: 'translate(-3px, 0)', mixBlendMode: 'multiply', color: '#ff0040', WebkitTextFillColor: '#ff0040' }}
                 aria-hidden
               >
                 {WORDS[currentIdx].text}
               </span>
               <span
-                className={`block text-[clamp(3rem,14vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-20 blur-[2px]`}
+                className={`block text-[clamp(2.2rem,11vw,11rem)] font-display font-black tracking-tighter leading-none select-none pointer-events-none absolute opacity-20 blur-[2px]`}
                 style={{ transform: 'translate(3px, 0)', mixBlendMode: 'multiply', color: '#0040ff', WebkitTextFillColor: '#0040ff' }}
                 aria-hidden
               >
                 {WORDS[currentIdx].text}
               </span>
               {/* Main text */}
-              <span className={`relative block text-[clamp(3rem,14vw,11rem)] font-display font-black tracking-tighter leading-none ${WORDS[currentIdx].gradient}`}>
+              <span className={`relative block text-[clamp(2.2rem,11vw,11rem)] font-display font-black tracking-tighter leading-none ${WORDS[currentIdx].gradient}`}>
                 {WORDS[currentIdx].text}
               </span>
             </motion.div>
