@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FFD95A;
+  --color-secondary: #C07F00;
+  --color-tertiary: #4C3D3D;
+  --color-brand-bg: #FFF7D4;
+  --color-gray-900: #4C3D3D;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-brand-bg);
+    color: var(--color-tertiary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+.font-horizon {
+  font-family: 'Horizon', 'Syncopate', 'Syne', sans-serif;
+}
+
+.text-gradient-1 {
+  background: linear-gradient(180deg, #FFE873 0%, #FBBF24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.text-gradient-2 {
+  background: linear-gradient(180deg, #F59E0B 0%, #B45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.text-gradient-3 {
+  background: linear-gradient(180deg, #78716C 0%, #44403C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.text-glow {
+  text-shadow: 0 4px 12px rgba(76, 61, 61, 0.25);
+}
+
+@keyframes smoothReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal {
+  animation: smoothReveal 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes strikethrough {
+  0% { transform: translateY(-50%) rotate(-2deg) scaleX(0); }
+  100% { transform: translateY(-50%) rotate(-2deg) scaleX(1); }
+}
+
+.custom-strikethrough {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  width: 90%;
+  height: 8px;
+  background-color: #ef4444; /* bright red */
+  border-radius: 9999px;
+  transform-origin: left center;
+  transform: translateY(-50%) rotate(-2deg) scaleX(0);
+  animation: strikethrough 0.4s cubic-bezier(0.8, 0, 0.2, 1) 0.6s forwards;
+  z-index: 10;
+}
+
+@keyframes bibleHide {
+  0% { max-width: 250px; opacity: 1; }
+  40% { opacity: 0; max-width: 250px; }
+  100% { max-width: 0px; opacity: 0; }
+}
+
+.animate-bible-hide {
+  animation: bibleHide 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.4s forwards;
+}
+
+@keyframes papasReveal {
+  0% { max-width: 0px; opacity: 0; }
+  60% { opacity: 0; max-width: 300px; }
+  100% { max-width: 300px; opacity: 1; }
+}
+
+.animate-papas-reveal {
+  max-width: 0;
+  opacity: 0;
+  animation: papasReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.4s forwards;
+}
+
+@keyframes loreColorShift {
+  0% { color: var(--color-primary); }
+  100% { color: var(--color-tertiary); }
+}
+
+.animate-lore-color {
+  color: var(--color-primary);
+  animation: loreColorShift 0.5s ease-out 1.4s forwards;
+}
